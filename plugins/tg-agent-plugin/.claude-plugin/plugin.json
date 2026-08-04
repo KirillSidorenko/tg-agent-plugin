@@ -1,0 +1,19 @@
+{
+  "name": "tg-agent-plugin",
+  "version": "0.3.0",
+  "description": "Unofficial local agent integration for Telegram, powered by gotd/cli.",
+  "author": {
+    "name": "TG Agent Plugin contributors",
+    "url": "https://github.com/KirillSidorenko"
+  },
+  "homepage": "https://github.com/KirillSidorenko/tg-agent-plugin#readme",
+  "repository": "https://github.com/KirillSidorenko/tg-agent-plugin",
+  "license": "MIT",
+  "keywords": [
+    "telegram",
+    "gotd",
+    "cli",
+    "agent",
+    "messaging"
+  ]
+}

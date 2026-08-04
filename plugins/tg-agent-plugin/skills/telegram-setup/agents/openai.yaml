@@ -1,0 +1,4 @@
+interface:
+  display_name: "Telegram Setup"
+  short_description: "Install and authorize local Telegram access"
+  default_prompt: "Use $telegram-setup to prepare my local Telegram account."

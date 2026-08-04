@@ -1,0 +1,20 @@
+{
+  "name": "tg-agent",
+  "interface": {
+    "displayName": "TG Agent"
+  },
+  "plugins": [
+    {
+      "name": "tg-agent-plugin",
+      "source": {
+        "source": "local",
+        "path": "./plugins/tg-agent-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "tg-agent-plugin",
+  "version": "0.3.0",
+  "description": "Unofficial local agent integration for Telegram, powered by gotd/cli.",
+  "author": {
+    "name": "TG Agent Plugin contributors",
+    "url": "https://github.com/KirillSidorenko"
+  },
+  "homepage": "https://github.com/KirillSidorenko/tg-agent-plugin#readme",
+  "repository": "https://github.com/KirillSidorenko/tg-agent-plugin",
+  "license": "MIT",
+  "keywords": [
+    "telegram",
+    "gotd",
+    "cli",
+    "agent",
+    "messaging"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "TG Agent",
+    "shortDescription": "Local Telegram account access via gotd/cli",
+    "longDescription": "Use a local Telegram personal account from Codex through the independent gotd/cli client, with local setup and explicit safety gates.",
+    "developerName": "TG Agent Plugin contributors",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Show my latest Telegram messages.",
+      "Find a Telegram chat and summarize recent context.",
+      "Set up my local Telegram account for TG Agent."
+    ],
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/tg-agent-mark.svg",
+    "logo": "./assets/tg-agent-mark.svg"
+  }
+}

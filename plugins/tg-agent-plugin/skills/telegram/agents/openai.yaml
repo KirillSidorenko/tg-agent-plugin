@@ -1,0 +1,4 @@
+interface:
+  display_name: "Telegram"
+  short_description: "Use a local Telegram personal account"
+  default_prompt: "Use $telegram to show my latest Telegram messages."

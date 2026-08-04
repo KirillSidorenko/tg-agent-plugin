@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title description">
+  <title id="title">TG Agent mark</title>
+  <desc id="description">A blue rounded square containing white TG initials and two terminal brackets.</desc>
+  <rect width="256" height="256" rx="56" fill="#2563EB"/>
+  <path d="M54 76 28 128l26 52M202 76l26 52-26 52" fill="none" stroke="#BFDBFE" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  <text x="128" y="151" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="68" font-weight="700" text-anchor="middle">TG</text>
+</svg>

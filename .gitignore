@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+dist/
+coverage/
+*.log
+*.tmp
+*.bak
+.env
+*.session
+
+# Never commit local Telegram client state or binaries.
+tg
+tg.exe
+telegram.db
+session.json

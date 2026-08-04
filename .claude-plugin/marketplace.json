@@ -1,0 +1,15 @@
+{
+  "name": "tg-agent",
+  "description": "Unofficial local agent integration for Telegram, powered by gotd/cli.",
+  "owner": {
+    "name": "TG Agent Plugin contributors"
+  },
+  "plugins": [
+    {
+      "name": "tg-agent-plugin",
+      "source": "./plugins/tg-agent-plugin",
+      "description": "Unofficial local agent integration for Telegram, powered by gotd/cli.",
+      "version": "0.3.0"
+    }
+  ]
+}

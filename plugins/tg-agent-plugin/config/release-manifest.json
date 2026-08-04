@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "repository": "https://github.com/gotd/cli",
+    "tag": "v0.11.0",
+    "version": "0.11.0",
+    "releaseUrl": "https://github.com/gotd/cli/releases/tag/v0.11.0",
+    "checksumsUrl": "https://github.com/gotd/cli/releases/download/v0.11.0/checksums.txt"
+  },
+  "smokeCommands": [
+    {
+      "name": "root-help",
+      "args": [
+        "--help"
+      ]
+    },
+    {
+      "name": "whoami-help",
+      "args": [
+        "whoami",
+        "--help"
+      ]
+    },
+    {
+      "name": "login-help",
+      "args": [
+        "login",
+        "--help"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "os": "darwin",
+      "arch": "amd64",
+      "name": "tg_0.11.0_darwin_amd64.tar.gz",
+      "url": "https://github.com/gotd/cli/releases/download/v0.11.0/tg_0.11.0_darwin_amd64.tar.gz",
+      "sha256": "ace7c122796053662781ce60e736930eb4c25c363c7801407aa3566d15cdcb4a",
+      "githubDigest": "sha256:ace7c122796053662781ce60e736930eb4c25c363c7801407aa3566d15cdcb4a"
+    },
+    {
+      "os": "darwin",
+      "arch": "arm64",
+      "name": "tg_0.11.0_darwin_arm64.tar.gz",
+      "url": "https://github.com/gotd/cli/releases/download/v0.11.0/tg_0.11.0_darwin_arm64.tar.gz",
+      "sha256": "9e72b09903c69e0a3854dfdac722bd44b99d4f2f5b9721e28bf1fa201f2b62f7",
+      "githubDigest": "sha256:9e72b09903c69e0a3854dfdac722bd44b99d4f2f5b9721e28bf1fa201f2b62f7"
+    },
+    {
+      "os": "linux",
+      "arch": "amd64",
+      "name": "tg_0.11.0_linux_amd64.tar.gz",
+      "url": "https://github.com/gotd/cli/releases/download/v0.11.0/tg_0.11.0_linux_amd64.tar.gz",
+      "sha256": "3510fcba55aadea2ca1b630766d37fb6dba30c4ab249f9d3adacc60ca75d43c8",
+      "githubDigest": "sha256:3510fcba55aadea2ca1b630766d37fb6dba30c4ab249f9d3adacc60ca75d43c8"
+    },
+    {
+      "os": "linux",
+      "arch": "arm64",
+      "name": "tg_0.11.0_linux_arm64.tar.gz",
+      "url": "https://github.com/gotd/cli/releases/download/v0.11.0/tg_0.11.0_linux_arm64.tar.gz",
+      "sha256": "d26f11be2adfc30c9a9f10aa8f2930d736f83468f452bf814963b1d917c5474b",
+      "githubDigest": "sha256:d26f11be2adfc30c9a9f10aa8f2930d736f83468f452bf814963b1d917c5474b"
+    },
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "name": "tg_0.11.0_windows_amd64.tar.gz",
+      "url": "https://github.com/gotd/cli/releases/download/v0.11.0/tg_0.11.0_windows_amd64.tar.gz",
+      "sha256": "b5b3dab350c073d4058805c3327e849f8ee8cccb6ecd28e668838d10a0be33de",
+      "githubDigest": "sha256:b5b3dab350c073d4058805c3327e849f8ee8cccb6ecd28e668838d10a0be33de"
+    },
+    {
+      "os": "windows",
+      "arch": "arm64",
+      "name": "tg_0.11.0_windows_arm64.tar.gz",
+      "url": "https://github.com/gotd/cli/releases/download/v0.11.0/tg_0.11.0_windows_arm64.tar.gz",
+      "sha256": "da86bfff51891b0f8d6e8d44e60b8e692a34ebd24cb3a6ee56aa661a55d3a482",
+      "githubDigest": "sha256:da86bfff51891b0f8d6e8d44e60b8e692a34ebd24cb3a6ee56aa661a55d3a482"
+    }
+  ]
+}

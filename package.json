@@ -1,0 +1,23 @@
+{
+  "name": "tg-agent-plugin",
+  "version": "0.3.0",
+  "description": "Unofficial local agent integration for Telegram, powered by gotd/cli.",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "package": "node scripts/package-plugin.mjs",
+    "security:scan": "node scripts/scan-source.mjs",
+    "test": "node --test && sh tests/posix-lifecycle.test.sh && sh tests/authorization-launchers.test.sh",
+    "test:authorization": "node --test tests/authorization-static.test.mjs && sh tests/authorization-launchers.test.sh",
+    "test:node": "node --test",
+    "test:posix": "sh tests/posix-lifecycle.test.sh",
+    "test:repository": "node --test tests/repository-contract.test.mjs",
+    "test:windows": "pwsh -NoLogo -NoProfile -File tests/windows-lifecycle.Tests.ps1",
+    "validate:plugin": "python3 scripts/validate_plugin.py plugins/tg-agent-plugin",
+    "verify:upstream": "node scripts/verify-upstream-release.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
