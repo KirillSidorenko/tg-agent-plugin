@@ -35,7 +35,7 @@ test("Windows lifecycle mirrors the approved pinned local contract", async () =>
   assert.match(content, /tar\.exe.*-tzf/u);
   assert.match(content, /tar\.exe.*-tvzf/u);
   assert.match(content, /tg\.exe\.bak/u);
-  assert.match(content, /Rollback-Replacement/u);
+  assert.match(content, /Restore-Replacement/u);
   assert.match(content, /Move-Item/u);
   assert.match(content, /TGAgentPlugin/u);
   assert.match(content, /Programs[\\/]tg[\\/]tg\.exe/u);

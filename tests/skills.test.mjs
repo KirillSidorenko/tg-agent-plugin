@@ -30,7 +30,8 @@ async function skillFile(relativePath) {
 }
 
 function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n/u);
+  const normalized = content.replaceAll("\r\n", "\n");
+  const match = normalized.match(/^---\n([\s\S]*?)\n---\n/u);
   assert.ok(match, "skill must start with YAML frontmatter");
   const entries = match[1]
     .split("\n")
@@ -62,7 +63,7 @@ test("both skills have minimal valid frontmatter and matching UI metadata", asyn
     assert.deepEqual(Object.keys(frontmatter).sort(), ["description", "name"]);
     assert.equal(frontmatter.name, expectedName);
     assert.match(frontmatter.description, /Use when/iu);
-    assert.equal(content.split("\n").length < 500, true);
+    assert.equal(content.split(/\r?\n/u).length < 500, true);
     validateSafetyText(content);
 
     const agentPath =

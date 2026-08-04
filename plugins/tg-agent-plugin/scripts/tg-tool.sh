@@ -23,7 +23,7 @@ while [ "$#" -gt 0 ]; do
   shift
 done
 
-SCRIPT_DIR=$(CDPATH= cd "$(dirname "$0")" && pwd)
+SCRIPT_DIR=$(CDPATH='' cd "$(dirname "$0")" && pwd)
 MANIFEST_PATH=$SCRIPT_DIR/../config/release-manifest.json
 STATE_DIR=${XDG_STATE_HOME:-"$HOME/.local/state"}/tg-agent-plugin
 INSTALL_STATE=$STATE_DIR/install.json
@@ -139,6 +139,7 @@ load_compatibility() {
   [ -n "$asset_record" ] || die "No pinned asset for $PLATFORM/$ARCHITECTURE"
   old_ifs=$IFS
   IFS='|'
+  # shellcheck disable=SC2086 # Intentional four-field split using the delimiter above.
   set -- $asset_record
   IFS=$old_ifs
   [ "$#" -eq 4 ] || die "Pinned asset entry is incomplete"
@@ -365,7 +366,9 @@ install_pinned() {
   validate_archive "$archive"
   tar -xzf "$archive" -C "$extract_dir" || die "Archive extraction failed"
   candidate=$extract_dir/tg
-  [ -f "$candidate" ] && [ ! -L "$candidate" ] || die "Extracted tg candidate is not a regular file"
+  if [ ! -f "$candidate" ] || [ -L "$candidate" ]; then
+    die "Extracted tg candidate is not a regular file"
+  fi
   chmod 755 "$candidate"
 
   mkdir -p "$INSTALL_DIR" "$STATE_DIR"

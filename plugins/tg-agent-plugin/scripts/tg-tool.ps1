@@ -8,6 +8,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$OutputAsJson = $Json.IsPresent
+$AuthorizationMode = $Mode
 $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ManifestPath = Join-Path (Split-Path -Parent $ScriptRoot) 'config\release-manifest.json'
 
@@ -43,7 +45,7 @@ function Write-Result {
         $result[$entry.Key] = $entry.Value
     }
 
-    if ($Json) {
+    if ($OutputAsJson) {
         $result | ConvertTo-Json -Compress -Depth 6
     }
     else {
@@ -202,7 +204,7 @@ function Expand-TgArchive {
     }
 }
 
-function Invoke-SmokeChecks {
+function Invoke-SmokeCheck {
     param(
         [Parameter(Mandatory)][string]$Executable,
         [Parameter(Mandatory)]$Manifest
@@ -217,7 +219,7 @@ function Invoke-SmokeChecks {
     $true
 }
 
-function Rollback-Replacement {
+function Restore-Replacement {
     param([Parameter(Mandatory)][bool]$HadPrevious)
 
     if (Test-Path -LiteralPath $ManagedPath) {
@@ -291,7 +293,7 @@ function Install-Pinned {
         $replacementActive = $true
         Move-Item -LiteralPath $NewPath -Destination $ManagedPath
 
-        if (-not (Invoke-SmokeChecks -Executable $ManagedPath -Manifest $manifest)) {
+        if (-not (Invoke-SmokeCheck -Executable $ManagedPath -Manifest $manifest)) {
             throw 'Smoke check failed.'
         }
         Write-InstallState -Manifest $manifest -Asset $asset
@@ -309,7 +311,7 @@ function Install-Pinned {
     }
     catch {
         if ($replacementActive) {
-            Rollback-Replacement -HadPrevious $hadPrevious
+            Restore-Replacement -HadPrevious $hadPrevious
         }
         throw
     }
@@ -335,7 +337,7 @@ function Get-LatestReleaseUrl {
     $response.BaseResponse.ResponseUri.AbsoluteUri
 }
 
-function Check-Update {
+function Get-UpdateStatus {
     $manifest = Read-ReleaseManifest
     $latestUrl = Get-LatestReleaseUrl
     if ($latestUrl -notmatch '^https://github\.com/gotd/cli/releases/tag/v[0-9]+\.[0-9]+\.[0-9]+$') {
@@ -362,7 +364,7 @@ function Test-TgAuthorization {
     $LASTEXITCODE -eq 0
 }
 
-function Start-TgAuthorization {
+function Invoke-TgAuthorization {
     $resolved = Resolve-TgExecutable
     if (-not $resolved) {
         return Write-Result -Status 'missing' -Fields @{ path = $ManagedPath }
@@ -375,8 +377,8 @@ function Start-TgAuthorization {
     if (-not (Test-Path -LiteralPath $launcher -PathType Leaf)) {
         throw 'Authorization launcher is unavailable.'
     }
-    & $launcher -TgPath $resolved -Mode $Mode | Out-Null
-    Write-Result -Status 'login-started' -Fields @{ mode = $Mode }
+    & $launcher -TgPath $resolved -Mode $AuthorizationMode | Out-Null
+    Write-Result -Status 'login-started' -Fields @{ mode = $AuthorizationMode }
 }
 
 function Confirm-TgAuthorization {
@@ -411,7 +413,7 @@ switch ($Action) {
     }
     'install' { Install-Pinned -SuccessStatus 'installed' }
     'repair' { Install-Pinned -SuccessStatus 'repaired' }
-    'check-update' { Check-Update }
-    'authorize' { Start-TgAuthorization }
+    'check-update' { Get-UpdateStatus }
+    'authorize' { Invoke-TgAuthorization }
     'verify-authorization' { Confirm-TgAuthorization }
 }

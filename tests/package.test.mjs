@@ -47,7 +47,7 @@ test("package build is byte-for-byte reproducible and readable by tar", async ()
 
     assert.deepEqual(await readFile(first), await readFile(second));
     const { stdout } = await execFileAsync("tar", ["-tzf", first]);
-    const names = stdout.trim().split("\n");
+    const names = stdout.trim().split(/\r?\n/u);
     assert.equal(names.includes("tg-agent-plugin/.codex-plugin/plugin.json"), true);
     assert.equal(names.includes("tg-agent-plugin/LICENSE"), true);
     assert.equal(names.some((name) => /(?:^|\/)tg(?:\.exe)?$/iu.test(name)), false);

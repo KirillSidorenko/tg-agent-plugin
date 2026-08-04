@@ -7,10 +7,10 @@ if [ "${1:-}" = "--worker" ]; then
   shift
 fi
 
-[ "$#" -ge 2 ] && [ "$#" -le 3 ] || {
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
   printf 'Usage: %s [--worker] <tg-path> <phone|qr> [--no-pause]\n' "$0" >&2
   exit 2
-}
+fi
 
 TG_PATH=$1
 MODE=$2
@@ -52,7 +52,9 @@ if [ "$WORKER" -eq 1 ]; then
   finish_worker 'Login completed. Return to the agent and report that you are ready.' 0
 fi
 
-SCRIPT_PATH=$(CDPATH= cd "$(dirname "$0")" && pwd)/$(basename "$0")
+SCRIPT_DIRECTORY=$(CDPATH='' cd "$(dirname "$0")" && pwd)
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_PATH=$SCRIPT_DIRECTORY/$SCRIPT_NAME
 if command -v x-terminal-emulator >/dev/null 2>&1; then
   x-terminal-emulator -e /bin/sh "$SCRIPT_PATH" --worker "$TG_PATH" "$MODE" >/dev/null 2>&1 &
 elif command -v gnome-terminal >/dev/null 2>&1; then

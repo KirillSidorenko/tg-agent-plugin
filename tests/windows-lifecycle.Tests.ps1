@@ -74,7 +74,7 @@ function Expand-TgArchive {
     param([string]$Archive, [string]$Destination)
     Set-Content -LiteralPath (Join-Path $Destination 'tg.exe') -Value 'new-binary' -Encoding Ascii
 }
-function Invoke-SmokeChecks { param($Executable, $Manifest) $script:SmokePass }
+function Invoke-SmokeCheck { param($Executable, $Manifest) $script:SmokePass }
 function Get-LatestReleaseUrl { $script:LatestUrl }
 
 Run-Test 'pinned Windows asset contract' {
@@ -143,7 +143,7 @@ Run-Test 'stale backup blocks replacement' {
 
 Run-Test 'newer-unpinned update is report only' {
     $before = Get-Content -LiteralPath $ManagedPath -Raw
-    $output = Check-Update | Out-String
+    $output = Get-UpdateStatus | Out-String
     Assert-Contains $output 'newer-unpinned' 'newer-unpinned report'
     Assert-Equal (Get-Content -LiteralPath $ManagedPath -Raw) $before 'report-only executable'
 }

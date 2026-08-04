@@ -7,6 +7,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$LoginMode = $Mode
+$PauseAfterLogin = -not $NoPause.IsPresent
 
 function Complete-LoginWindow {
     param(
@@ -14,9 +16,9 @@ function Complete-LoginWindow {
         [Parameter(Mandatory)][int]$Code
     )
 
-    Write-Host ''
-    Write-Host $Message
-    if (-not $NoPause) {
+    Write-Output ''
+    Write-Output $Message
+    if ($PauseAfterLogin) {
         [void](Read-Host 'Press Enter to close this window')
     }
     exit $Code
@@ -41,19 +43,19 @@ if (-not $Worker) {
         '-File', $scriptPath,
         '-Worker',
         '-TgPath', $TgPath,
-        '-Mode', $Mode
+        '-Mode', $LoginMode
     )
     Start-Process -FilePath $powerShellPath -ArgumentList $arguments | Out-Null
-    [pscustomobject]@{ schemaVersion = 1; status = 'login-started'; mode = $Mode } |
+    [pscustomobject]@{ schemaVersion = 1; status = 'login-started'; mode = $LoginMode } |
         ConvertTo-Json -Compress
     exit 0
 }
 
 try {
-    Write-Host 'Secure local Telegram login'
-    Write-Host 'Enter every credential only in this local window.'
-    Write-Host 'Never send a phone number, code, QR token, or 2FA password to the agent.'
-    Write-Host ''
+    Write-Output 'Secure local Telegram login'
+    Write-Output 'Enter every credential only in this local window.'
+    Write-Output 'Never send a phone number, code, QR token, or 2FA password to the agent.'
+    Write-Output ''
 
     if (-not $env:APPDATA) {
         throw 'APPDATA is unavailable, so the gotd/cli config path cannot be resolved.'
@@ -66,12 +68,12 @@ try {
         }
     }
 
-    if ($Mode -eq 'phone') {
-        Write-Host 'Enter the phone number, Telegram code, and 2FA password when prompted.'
+    if ($LoginMode -eq 'phone') {
+        Write-Output 'Enter the phone number, Telegram code, and 2FA password when prompted.'
         & $TgPath login '--phone='
     }
     else {
-        Write-Host 'In Telegram, open Settings, Devices, then Link Desktop Device.'
+        Write-Output 'In Telegram, open Settings, Devices, then Link Desktop Device.'
         & $TgPath login
     }
     if ($LASTEXITCODE -ne 0) {

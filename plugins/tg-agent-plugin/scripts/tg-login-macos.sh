@@ -7,10 +7,10 @@ if [ "${1:-}" = "--worker" ]; then
   shift
 fi
 
-[ "$#" -ge 2 ] && [ "$#" -le 3 ] || {
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
   printf 'Usage: %s [--worker] <tg-path> <phone|qr> [--no-pause]\n' "$0" >&2
   exit 2
-}
+fi
 
 TG_PATH=$1
 MODE=$2
@@ -56,7 +56,9 @@ shell_quote() {
   printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
 }
 
-SCRIPT_PATH=$(CDPATH= cd "$(dirname "$0")" && pwd)/$(basename "$0")
+SCRIPT_DIRECTORY=$(CDPATH='' cd "$(dirname "$0")" && pwd)
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_PATH=$SCRIPT_DIRECTORY/$SCRIPT_NAME
 command_line="/bin/sh $(shell_quote "$SCRIPT_PATH") --worker $(shell_quote "$TG_PATH") $(shell_quote "$MODE")"
 apple_command=$(printf '%s' "$command_line" | sed 's/\\/\\\\/g; s/"/\\"/g')
 osascript_path=$(command -v osascript 2>/dev/null || true)
