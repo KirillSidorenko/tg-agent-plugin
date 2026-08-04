@@ -269,7 +269,7 @@ Exact commands belong in `docs/runbooks/`; live results belong in the evidence s
 - **Red:** Two static contract tests failed first because the PowerShell lifecycle and native Windows harness did not exist.
 - **Green available locally:** Both static contracts passed for action parity, pinned manifest parsing, GitHub release confinement, SHA-256, pre-extraction archive inspection, backup/rollback, user-local paths, credential-environment removal, and required negative harness cases.
 - **Implemented native gate:** The dependency-free PowerShell harness covers pinned asset selection, install state, checksum mismatch, absolute path, parent traversal, symbolic link, hard link, duplicate executable, failed-smoke rollback, stale backup, and report-only unpinned updates.
-- **Blocked evidence:** The native harness and PSScriptAnalyzer have not run because `pwsh` is unavailable in the local macOS environment. Phase 9 Windows CI must execute both before release; Phase 6 is implementation-complete but not platform-validated.
+- **Hosted Windows evidence:** The native harness and PSScriptAnalyzer passed on GitHub's Windows runner. This validates the scripted Windows lifecycle contract; real installation of each Windows release asset remains part of the manual matrix.
 
 ### Phase 7 — Shared English skills and references
 
@@ -293,7 +293,8 @@ Exact commands belong in `docs/runbooks/`; live results belong in the evidence s
 - **Green:** The full local suite passed 32 Node contracts, ten isolated POSIX lifecycle scenarios, and four authorization-launcher scenarios. The dependency-free validator accepted the payload, the source scanner reported no credential/session/binary artifacts, and the upstream verifier matched all six pinned assets against the official checksum file and GitHub digests.
 - **Package evidence:** Two builds of `dist/tg-agent-plugin-0.3.0.tar.gz` were byte-for-byte identical. The archive contains 19 allowlisted source and notice files with normalized metadata, no bundled `tg`, and no session-like artifact.
 - **Workflow evidence:** CI covers Node contracts on Ubuntu, macOS, and Windows; POSIX behavior on Ubuntu and macOS; PowerShell behavior and PSScriptAnalyzer on Windows; ShellCheck; plugin validation; source scanning; deterministic packaging; and live upstream metadata verification. All external Actions are pinned to immutable 40-character commits.
-- **Open platform gate:** These workflows have not run on GitHub yet. Native Windows, PSScriptAnalyzer, and hosted-runner results remain release blockers until publication of the source branch enables CI.
+- **Hosted evidence:** The first public run exposed CRLF/tar portability assumptions, five ShellCheck findings, and PSScriptAnalyzer warnings. The fixes preserved all safety gates, updated external Actions to immutable v5 commits, and the second run passed every Ubuntu, macOS, Windows, ShellCheck, PSScriptAnalyzer, package, validator, source-scan, and upstream-verification job.
+- **CI run:** <https://github.com/KirillSidorenko/tg-agent-plugin/actions/runs/30914309045>
 
 ### Phase 10 — Host integration and platform validation
 
@@ -303,7 +304,15 @@ Exact commands belong in `docs/runbooks/`; live results belong in the evidence s
 - **Safety behavior:** Fresh no-tool sessions in both hosts rejected bot setup as out of scope and required recipient clarification for a hypothetical ambiguous `Alex` write. No Telegram command was executed for these scenarios.
 - **Real macOS arm64 lifecycle:** A clean isolated home completed missing status, pinned install, ready status, repair, update check, and all three real `gotd/cli v0.11.0` smoke commands. The first run exposed cleanup failure when macOS supplied a trailing-slash `TMPDIR`; a new failing regression test reproduced it, path normalization fixed it, and the repeated real install/repair confirmed cleanup.
 - **Local account check:** One authorized `chats list` read parsed as JSON. The local filter emitted only `{jsonParsed, itemCount, contentEmitted}` evidence and no chat, account, phone, message, or session content.
-- **Open matrix gate:** macOS amd64, Linux amd64/arm64, and Windows amd64/arm64 executable checks remain unavailable locally. Windows harness, PSScriptAnalyzer, and hosted CI remain blocked until the source branch is pushed; the `0.3.0` release must remain unpublished meanwhile.
+- **Open matrix gate:** macOS amd64, Linux amd64/arm64, and Windows amd64/arm64 real asset installation checks remain unavailable locally. Hosted Windows contract execution does not replace these manual checks; the `0.3.0` release must remain unpublished meanwhile.
+
+### Phase 11 — Public GitHub publication
+
+- **Date:** 2026-08-04
+- **Public source:** Created <https://github.com/KirillSidorenko/tg-agent-plugin> under the authenticated `KirillSidorenko` account, pushed reviewed English source to `main`, configured the MIT license, issues, six project topics, and private vulnerability reporting, and disabled the unused wiki.
+- **Public verification:** GitHub reports the repository as public with `main` as its default branch. The second CI run is fully green across all eight jobs.
+- **Public host installs:** Codex installed the plugin from the repository's Git marketplace at reviewed commit `5e763af2c65cb4a9f53ac01d3959865efcc239a6`; Claude Code cloned the public GitHub marketplace. Both report enabled `tg-agent-plugin@tg-agent` version `0.3.0`, and Claude Code lists exactly the two expected skills with no MCP server.
+- **Intentional release block:** No `v0.3.0` tag or GitHub release was created. The source is public and installable from `main`, but the source-only release remains blocked by the outstanding physical architecture matrix.
 
 Each later completed phase will add its test result, platform, and date here without removing earlier release-relevant evidence.
 

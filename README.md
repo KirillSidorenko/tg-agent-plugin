@@ -1,5 +1,7 @@
 # TG Agent Plugin
 
+[![CI](https://github.com/KirillSidorenko/tg-agent-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/KirillSidorenko/tg-agent-plugin/actions/workflows/ci.yml)
+
 ![TG Agent mark](plugins/tg-agent-plugin/assets/tg-agent-mark.svg)
 
 Unofficial local agent integration for Telegram, powered by
@@ -20,9 +22,10 @@ the locations managed by `gotd/cli` on the user's device.
 
 ## Status
 
-Version `0.3.0` is in pre-release validation. The repository is public-source
-ready, but Windows execution, CI, host installation, and manual release gates
-must be green before the first GitHub release is published.
+Version `0.3.0` is in pre-release validation. The public source repository,
+cross-platform CI, Windows lifecycle harness, static analysis, and installation
+from GitHub in both hosts are green. The first GitHub release remains blocked
+until the outstanding physical OS and architecture checks are complete.
 
 ## Supported targets
 
@@ -48,12 +51,16 @@ For host details, see the official
 
 ## Install in Codex
 
-Add the GitHub marketplace at the release tag, then install the plugin:
+During pre-release validation, add the reviewed public `main` branch, then
+install the plugin:
 
 ```sh
-codex plugin marketplace add KirillSidorenko/tg-agent-plugin --ref v0.3.0
+codex plugin marketplace add KirillSidorenko/tg-agent-plugin --ref main
 codex plugin add tg-agent-plugin@tg-agent
 ```
+
+After release `0.3.0` is published, prefer immutable `--ref v0.3.0` instead of
+`--ref main`.
 
 Start a new task after installation so Codex loads the two bundled skills.
 

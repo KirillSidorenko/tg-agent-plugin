@@ -11,17 +11,22 @@ product behavior; the platform checklist owns release evidence.
 
 ## Install from GitHub
 
-The repository is <https://github.com/KirillSidorenko/tg-agent-plugin>. Release
-`0.3.0` uses marketplace name `tg-agent` and plugin name `tg-agent-plugin`.
+The repository is <https://github.com/KirillSidorenko/tg-agent-plugin>.
+Version `0.3.0` uses marketplace name `tg-agent` and plugin name
+`tg-agent-plugin`. Until the first release tag is published, public validation
+uses the reviewed `main` branch.
 
 ### Codex
 
 ```sh
-codex plugin marketplace add KirillSidorenko/tg-agent-plugin --ref v0.3.0
+codex plugin marketplace add KirillSidorenko/tg-agent-plugin --ref main
 codex plugin add tg-agent-plugin@tg-agent
 ```
 
 Start a new task after installation.
+
+After the release exists, replace `--ref main` with immutable
+`--ref v0.3.0`.
 
 ### Claude Code
 

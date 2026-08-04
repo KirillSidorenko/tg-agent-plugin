@@ -13,7 +13,7 @@ Source priority:
 
 ## Current system snapshot
 
-The repository is in active implementation. Its dependency-free test harnesses, English public documentation and runbooks, issue routing, local Git foundation, shared nested plugin payload, host manifests, repository marketplaces, brand asset, pinned upstream compatibility manifest, cross-platform lifecycle scripts, platform authorization launchers, shared operational/setup skills, CI/release workflows, source scanner, upstream verifier, plugin validator, and deterministic source-only packager exist. Both local hosts have installed and discovered the shared skills. Windows has static contract coverage and a native test harness, but execution awaits a Windows runner. The package can be built locally, but no public GitHub release exists yet.
+The public source repository is in pre-release validation. Its dependency-free test harnesses, English documentation and runbooks, issue routing, shared nested plugin payload, host manifests, repository marketplaces, brand asset, pinned upstream compatibility manifest, cross-platform lifecycle scripts, platform authorization launchers, shared operational/setup skills, CI/release workflows, source scanner, upstream verifier, plugin validator, and deterministic source-only packager exist. GitHub-hosted CI is green across Ubuntu, macOS, and Windows, including the native Windows harness and static analyzers. Both hosts have installed the plugin from the public GitHub marketplace and discovered the shared skills. No public GitHub release exists yet.
 
 The planned product is one source repository that distributes the same local plugin payload to Claude Code and Codex. The payload teaches the host agent to use an independently installed `tg` binary and provides safe lifecycle scripts for installation, authorization, repair, and compatibility-pinned updates.
 
@@ -164,11 +164,8 @@ Add physically separate application, delivery, security, or runbook documents on
 
 ## Critical current gaps
 
-- The Windows lifecycle and launcher harness has not been executed on Windows, and PSScriptAnalyzer has not run.
-- GitHub-hosted CI, the native Windows lifecycle harness, and PSScriptAnalyzer have not run yet.
 - The required manual matrix remains incomplete outside macOS arm64; Linux, Windows, and macOS amd64 executable evidence is outstanding.
-- The deterministic package has only local evidence; no public repository or source-only release exists.
-- No GitHub remote, publisher identity, support URL, privacy policy URL, or terms URL has been configured.
+- The deterministic package has local and hosted CI evidence, but no source-only release exists.
 
 ## Ownership and updates
 

@@ -41,6 +41,8 @@ All notable changes to TG Agent Plugin are documented here. The project follows
 - Local marketplace installation and skill discovery for both Claude Code and
   Codex, plus a macOS temporary-directory cleanup regression fix found during
   a real isolated pinned install.
+- Public GitHub source publication, green Ubuntu/macOS/Windows CI, and verified
+  installation from the GitHub marketplace in Claude Code and Codex.
 
 ## [0.2.0] - 2026-08-04
 
