@@ -63,7 +63,7 @@ test("README documents both hosts, local-only scope, lifecycle, and upstream", a
   assert.match(readme, /amd64.*arm64/isu);
   assert.match(readme, /gotd\/cli v0\.11\.0/u);
 
-  const firstPrompt = readme.match(/```text\n([\s\S]*?)\n```/u)?.[1];
+  const firstPrompt = readme.match(/```text\r?\n([\s\S]*?)\r?\n```/u)?.[1];
   assert.ok(firstPrompt, "README must provide a copyable installation prompt");
   assert.ok(firstPrompt.includes(repositoryUrl));
   assert.match(firstPrompt, /install/iu);
