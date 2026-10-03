@@ -4,97 +4,44 @@
 
 ![TG Agent mark](plugins/tg-agent-plugin/assets/tg-agent-mark.svg)
 
-Unofficial local agent integration for Telegram, powered by
-[`gotd/cli`](https://github.com/gotd/cli).
+Connect Telegram to Claude Code, Codex, or a local Codex task in the ChatGPT
+desktop app. The plugin installs the independent
+[`gotd/cli`](https://github.com/gotd/cli) client, which your agent uses to read
+chats, find messages, send replies, and work with files.
 
-TG Agent Plugin is a thin integration and safety layer around the independent
-open-source `gotd/cli` client. It does not implement the Telegram protocol,
-ship its own Telegram client, or redistribute `tg` binaries.
+## Install with your agent
 
-The same source-only plugin gives Claude Code and Codex local skills for a
-Telegram personal account. Credentials, configuration, and sessions stay in
-the locations managed by `gotd/cli` on the user's device.
+Open a local task in your app and paste this:
 
-> [!IMPORTANT]
-> This project is not affiliated with, endorsed by, or sponsored by Telegram.
-> It supports personal accounts only. Bots, hosted sessions, remote MCP
-> servers, and ChatGPT Web are outside its scope.
-
-## Status
-
-Version `0.3.0` is in pre-release validation. The public source repository,
-cross-platform CI, Windows lifecycle harness, static analysis, and installation
-from GitHub in both hosts are green. The first GitHub release remains blocked
-until the outstanding physical OS and architecture checks are complete.
-
-## Supported targets
-
-| Host | macOS | Linux | Windows |
-| --- | --- | --- | --- |
-| Claude Code | amd64, arm64 | amd64, arm64 | amd64, arm64 |
-| Codex | amd64, arm64 | amd64, arm64 | amd64, arm64 |
-
-The initial plugin release pins `gotd/cli v0.11.0`. A newer upstream version is
-never installed automatically; it must first pass compatibility and platform
-tests in a new plugin release.
-
-## Requirements
-
-- A local Claude Code or Codex installation that supports plugins.
-- Git access to <https://github.com/KirillSidorenko/tg-agent-plugin>.
-- A Telegram personal account for local authorization.
-- No administrator privileges.
-
-For host details, see the official
-[OpenAI plugin documentation](https://developers.openai.com/plugins/) and
-[Claude Code marketplace documentation](https://code.claude.com/docs/en/discover-plugins).
-
-## Install in Codex
-
-During pre-release validation, add the reviewed public `main` branch, then
-install the plugin:
-
-```sh
-codex plugin marketplace add KirillSidorenko/tg-agent-plugin --ref main
-codex plugin add tg-agent-plugin@tg-agent
+```text
+Install TG Agent from https://github.com/KirillSidorenko/tg-agent-plugin
+for this app, including its pinned Telegram CLI. I authorize installation
+in my user account. Follow the repository's installation runbook, complete
+setup, and open the secure local Telegram login. Keep login details out of chat.
 ```
 
-After release `0.3.0` is published, prefer immutable `--ref v0.3.0` instead of
-`--ref main`.
+Your agent handles installation and checks that the client is ready. You only
+need to complete Telegram sign-in in the local window it opens. No administrator
+privileges are required. If your app needs a new session to load the plugin,
+the agent will tell you how to continue.
 
-Start a new task after installation so Codex loads the two bundled skills.
+This requires a local agent with file and terminal access. It supports personal
+accounts only; ChatGPT Web and bot accounts are outside its scope.
 
-## Install in Claude Code
-
-Add the GitHub marketplace, then install the same nested payload:
-
-```sh
-claude plugin marketplace add KirillSidorenko/tg-agent-plugin
-claude plugin install tg-agent-plugin@tg-agent
-```
-
-Restart Claude Code after an install or update. The skills are namespaced by the
-plugin in Claude Code.
-
-See the exact install, update, and removal procedures in
-[`docs/runbooks/install-and-uninstall.md`](docs/runbooks/install-and-uninstall.md).
+For agents and manual setup: follow the
+[installation runbook](docs/runbooks/install-and-uninstall.md).
 
 ## First local login
 
-Ask the agent:
+Enter your login details only in the separate local window. Never paste a
+phone number, Telegram code, QR token, or 2FA password into agent chat.
+When sign-in finishes, tell the agent “Done” so it can verify the connection.
+
+If installation finished in a previous task, start a new one and ask:
 
 ```text
-Set up my local Telegram account for TG Agent.
+Connect my Telegram account using TG Agent and open the local login window.
 ```
-
-The setup skill checks for `tg`, explains the pinned upstream download, and
-asks before installing it. Phone login is the default; request QR explicitly
-when preferred. Login opens in a separate local terminal process.
-
-Never paste a phone number, Telegram code, QR token, or 2FA password into agent
-chat. Enter every credential only in the separate local login window. When it
-finishes, return to the agent and report completion; the setup skill verifies
-authorization exactly once.
 
 ## Example requests
 
@@ -108,6 +55,27 @@ authorization exactly once.
 An explicit write request authorizes only an unambiguous target. Destructive,
 administrative, profile, and session-changing actions require confirmation of
 the exact target and effect immediately before execution.
+
+## Compatibility and project status
+
+| Host | macOS | Linux | Windows |
+| --- | --- | --- | --- |
+| Claude Code | amd64, arm64 | amd64, arm64 | amd64, arm64 |
+| Codex | amd64, arm64 | amd64, arm64 | amd64, arm64 |
+
+The plugin pins `gotd/cli v0.11.0`. New CLI versions become installable after
+compatibility and platform checks in a plugin release.
+
+Version `0.3.0` is in pre-release validation and is installed from `main`.
+Cross-platform CI and installation from GitHub in both hosts have passed.
+The first tagged release awaits the remaining physical OS and architecture
+checks described in the [platform checklist](docs/runbooks/manual-platform-tests.md).
+
+TG Agent Plugin is a thin integration and safety layer around the independent
+open-source `gotd/cli` client. It does not implement the Telegram protocol,
+ship its own Telegram client, or redistribute `tg` binaries. It is not affiliated
+with, endorsed by, or sponsored by Telegram. Hosted sessions and remote MCP
+servers are outside its scope.
 
 ## Privacy and safety model
 

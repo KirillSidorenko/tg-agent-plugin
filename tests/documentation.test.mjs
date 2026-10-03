@@ -57,22 +57,19 @@ test("README documents both hosts, local-only scope, lifecycle, and upstream", a
   assert.match(readme, /thin integration and safety layer/iu);
   assert.match(readme, /https:\/\/github\.com\/gotd\/cli/u);
   assert.match(readme, /https:\/\/github\.com\/ernado/u);
-  assert.match(readme, /not affiliated with.*Telegram/isu);
-  assert.match(readme, /personal accounts only/iu);
+  assert.match(readme, /not affiliated\s+with.*Telegram/isu);
+  assert.match(readme, /personal\s+accounts only/iu);
   assert.match(readme, /macOS.*Linux.*Windows/isu);
   assert.match(readme, /amd64.*arm64/isu);
   assert.match(readme, /gotd\/cli v0\.11\.0/u);
 
-  assert.match(
-    readme,
-    /codex plugin marketplace add KirillSidorenko\/tg-agent-plugin/u,
-  );
-  assert.match(readme, /codex plugin add tg-agent-plugin@tg-agent/u);
-  assert.match(
-    readme,
-    /claude plugin marketplace add KirillSidorenko\/tg-agent-plugin/u,
-  );
-  assert.match(readme, /claude plugin install tg-agent-plugin@tg-agent/u);
+  const firstPrompt = readme.match(/```text\n([\s\S]*?)\n```/u)?.[1];
+  assert.ok(firstPrompt, "README must provide a copyable installation prompt");
+  assert.ok(firstPrompt.includes(repositoryUrl));
+  assert.match(firstPrompt, /install/iu);
+  assert.match(firstPrompt, /pinned.*CLI/iu);
+  assert.match(firstPrompt, /local.*login/iu);
+  assert.doesNotMatch(readme, /(?:codex|claude) plugin (?:marketplace|add|install)/u);
 
   assert.match(readme, /First local login/iu);
   assert.match(readme, /Never paste.*phone number.*code.*2FA/isu);
@@ -119,6 +116,8 @@ test("runbooks own exact install, uninstall, troubleshooting, and platform gates
   assert.match(install, /Fact owner:/u);
   assert.match(install, /codex plugin marketplace add/u);
   assert.match(install, /claude plugin marketplace add/u);
+  assert.match(install, /codex plugin add tg-agent-plugin@tg-agent/u);
+  assert.match(install, /claude plugin install tg-agent-plugin@tg-agent/u);
   assert.match(install, /preserv.*Telegram.*sessions/isu);
   assert.match(install, /optional.*managed.*executable/isu);
 

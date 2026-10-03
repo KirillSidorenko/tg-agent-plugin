@@ -5,6 +5,12 @@ All notable changes to TG Agent Plugin are documented here. The project follows
 
 ## [Unreleased]
 
+### Changed
+
+- Made a short copyable agent prompt the primary README installation path.
+  Host commands stay in the installation runbook, which guides agents through
+  plugin registration, CLI setup, and the requested local login.
+
 ### Fixed
 
 - Quoted setup command paths so plugin directories containing spaces work on
