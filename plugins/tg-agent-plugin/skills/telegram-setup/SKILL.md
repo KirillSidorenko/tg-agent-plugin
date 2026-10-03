@@ -19,9 +19,9 @@ Resolve the plugin root two directories above this skill directory. Use the
 script for the current platform:
 
 - macOS or Linux:
-  `/bin/sh <plugin-root>/scripts/tg-tool.sh <action> --json`
+  `/bin/sh "<plugin-root>/scripts/tg-tool.sh" <action> --json`
 - Windows:
-  `powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File <plugin-root>\scripts\tg-tool.ps1 -Action <action> -Json`
+  `powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File "<plugin-root>\scripts\tg-tool.ps1" -Action <action> -Json`
 
 For authorization, add `--mode phone|qr` on POSIX or `-Mode phone|qr` on
 Windows. Read [`references/platforms.md`](references/platforms.md) for paths,
@@ -54,6 +54,17 @@ do not offer a bypass.
 Treat `newer-unpinned` as report-only. Show the official release link and
 explain that a newer client becomes installable only in a tested plugin release.
 Never modify the compatibility manifest during a user setup flow.
+
+After installation returns `ready`, report that the client is installed. Start
+login only if the user also requested authorization. If the plugin was newly
+registered and its skills are not yet loaded, ask the user to open a new host
+session for the next request.
+
+Plugin package updates and the `tg` executable have separate lifecycles. Keep
+credentials, configuration, sessions, mutable state, and downloaded messages
+outside the installed plugin directory. Keep gotd data in its standard
+user-profile locations; lifecycle state paths are listed in
+[`references/platforms.md`](references/platforms.md).
 
 ## Authorize locally
 

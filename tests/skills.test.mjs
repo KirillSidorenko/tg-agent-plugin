@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
+import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -28,6 +30,35 @@ const files = {
 async function skillFile(relativePath) {
   return readFile(path.join(skillsRoot, relativePath), "utf8");
 }
+
+test("documented lifecycle commands preserve plugin paths containing spaces", async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "tg plugin path "));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(path.join(root, "scripts"));
+  const windows = process.platform === "win32";
+  await writeFile(
+    path.join(root, "scripts", windows ? "tg-tool.ps1" : "tg-tool.sh"),
+    windows
+      ? 'param([string]$Action, [switch]$Json)\nWrite-Output "$Action|$($Json.IsPresent)"\n'
+      : '#!/bin/sh\nprintf "%s|%s\\n" "$1" "$2"\n',
+  );
+  for (const file of [files.setup.skill, files.setup.platforms]) {
+    const content = await skillFile(file);
+    const pattern = windows
+      ? /powershell\.exe[^\n`]*-File [^\n`]*tg-tool\.ps1[^\n`]*/u
+      : /\/bin\/sh [^\n`]*tg-tool\.sh[^\n`]*/u;
+    const template = content.match(pattern)?.[0];
+    assert.ok(template, `${file} must document the platform command`);
+    const command = template.replaceAll("<plugin-root>", root).replaceAll("<action>", "status");
+    const result = spawnSync(
+      windows ? "powershell.exe" : "/bin/sh",
+      windows ? ["-NoProfile", "-Command", command] : ["-c", command],
+      { encoding: "utf8" },
+    );
+    assert.equal(result.status, 0, `${file}: ${result.stderr}`);
+    assert.equal(result.stdout.trim(), windows ? "status|True" : "status|--json");
+  }
+});
 
 function parseFrontmatter(content) {
   const normalized = content.replaceAll("\r\n", "\n");

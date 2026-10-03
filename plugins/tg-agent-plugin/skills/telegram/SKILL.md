@@ -67,3 +67,12 @@ within the overall user-approved deadline instead. Never create a daemon.
 Never request or expose a login phone number, Telegram code, QR token, 2FA
 password, API credential, configuration, or session content. Let the sibling
 setup skill open the separate local interactive login process.
+
+## Keep user data outside the package
+
+Plugin package updates and the `tg` executable have separate lifecycles.
+Keep credentials, Telegram configuration, sessions, mutable state, and downloaded
+messages outside the installed plugin directory so a package replacement cannot
+remove user data. Keep gotd data in its standard user-profile locations and save
+downloads to the user-requested working folder or the safe workspace destination
+chosen for the task.

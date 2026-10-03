@@ -19,21 +19,21 @@ The plugin never requires administrator privileges and never changes the
 POSIX:
 
 ```text
-/bin/sh <plugin-root>/scripts/tg-tool.sh status --json
-/bin/sh <plugin-root>/scripts/tg-tool.sh install --json
-/bin/sh <plugin-root>/scripts/tg-tool.sh repair --json
-/bin/sh <plugin-root>/scripts/tg-tool.sh check-update --json
-/bin/sh <plugin-root>/scripts/tg-tool.sh authorize --mode phone --json
-/bin/sh <plugin-root>/scripts/tg-tool.sh verify-authorization --json
+/bin/sh "<plugin-root>/scripts/tg-tool.sh" status --json
+/bin/sh "<plugin-root>/scripts/tg-tool.sh" install --json
+/bin/sh "<plugin-root>/scripts/tg-tool.sh" repair --json
+/bin/sh "<plugin-root>/scripts/tg-tool.sh" check-update --json
+/bin/sh "<plugin-root>/scripts/tg-tool.sh" authorize --mode phone --json
+/bin/sh "<plugin-root>/scripts/tg-tool.sh" verify-authorization --json
 ```
 
 Windows:
 
 ```text
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File <plugin-root>\scripts\tg-tool.ps1 -Action status -Json
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File <plugin-root>\scripts\tg-tool.ps1 -Action install -Json
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File <plugin-root>\scripts\tg-tool.ps1 -Action authorize -Mode phone -Json
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File <plugin-root>\scripts\tg-tool.ps1 -Action verify-authorization -Json
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File "<plugin-root>\scripts\tg-tool.ps1" -Action status -Json
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File "<plugin-root>\scripts\tg-tool.ps1" -Action install -Json
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File "<plugin-root>\scripts\tg-tool.ps1" -Action authorize -Mode phone -Json
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File "<plugin-root>\scripts\tg-tool.ps1" -Action verify-authorization -Json
 ```
 
 ## Linux launcher order

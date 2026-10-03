@@ -5,6 +5,15 @@ All notable changes to TG Agent Plugin are documented here. The project follows
 
 ## [Unreleased]
 
+### Fixed
+
+- Quoted setup command paths so plugin directories containing spaces work on
+  POSIX and Windows, with an executable documentation regression test.
+- Clarified separate package/client updates, storage outside the plugin directory,
+  and the installation-to-login handoff after comparing the public source with
+  the Diversity managed distribution. See the
+  [2026-10-03 comparison](docs/reports/2026-10-03-portal-parity.md).
+
 ### Added
 
 - Approved cross-host design for Claude Code and Codex.
